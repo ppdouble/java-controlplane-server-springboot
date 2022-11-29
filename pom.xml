@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>io.envoyproxy.controlplane</groupId>
+	<artifactId>pemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>pemo</name>
+	<description>Pemo project for Spring Boot</description>
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- Dependency Versions -->
+		<annotation-api.version>1.3.2</annotation-api.version>
+		<assertj.version>3.12.2</assertj.version>
+		<auto-value.version>1.6.3</auto-value.version>
+		<awaitility.version>3.1.6</awaitility.version>
+		<checkstyle.version>8.18</checkstyle.version>
+		<grpc.version>1.48.1</grpc.version>
+		<guava.version>31.1-android</guava.version><!-- Keep the Guava version in sync with grpc-java -->
+		<junit.version>4.13.1</junit.version>
+		<protobuf.version>3.21.5</protobuf.version><!-- Keep the Protobuf version in sync with grpc-java -->
+		<rest-assured.version>3.1.0</rest-assured.version>
+		<slf4j.version>1.7.26</slf4j.version>
+		<testcontainers.version>1.17.1</testcontainers.version>
+
+		<!-- Maven Plugin Versions -->
+		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+		<maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+		<maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
+		<maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+		<maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
+		<versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+
+		<controlplane.version>0.1.35</controlplane.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.envoyproxy.controlplane</groupId>
+			<artifactId>api</artifactId>
+			<version>${controlplane.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.envoyproxy.controlplane</groupId>
+			<artifactId>cache</artifactId>
+			<version>${controlplane.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.auto.value</groupId>
+			<artifactId>auto-value</artifactId>
+			<version>${auto-value.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.21.5</version>
+		</dependency>
+
+		<!--		<dependency>-->
+		<!--			<groupId>io.grpc</groupId>-->
+		<!--			<artifactId>grpc-netty</artifactId>-->
+		<!--			<version>${grpc.version}</version>-->
+		<!--			<scope>test</scope>-->
+		<!--		</dependency>-->
+
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty</artifactId>
+			<version>${grpc.version}</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.grpc</groupId>-->
+<!--			<artifactId>grpc-netty-shaded</artifactId>-->
+<!--			<version>${grpc.version}</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+			<version>${grpc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+			<version>${grpc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-testing</artifactId>
+			<version>${grpc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>${rest-assured.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>${awaitility.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Test Dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-test</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
