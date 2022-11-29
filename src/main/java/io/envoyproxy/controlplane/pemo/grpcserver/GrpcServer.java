@@ -1,6 +1,7 @@
 package io.envoyproxy.controlplane.pemo.grpcserver;
 
 import io.envoyproxy.controlplane.cache.v3.SimpleCache;
+import io.envoyproxy.controlplane.pemo.grpcserver.callback.MyDiscoveryServerCallbacks;
 import io.envoyproxy.controlplane.server.V3DiscoveryServer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -31,7 +32,8 @@ public class GrpcServer implements InitializingBean {
         // create cache
 
         // handle server. cache and callback
-        V3DiscoveryServer v3DiscoveryServer = new V3DiscoveryServer(cache);
+        MyDiscoveryServerCallbacks mycallback = new MyDiscoveryServerCallbacks();
+        V3DiscoveryServer v3DiscoveryServer = new V3DiscoveryServer(mycallback, cache);
 
         // embeded service to server, so that server can recognize the service and callbacks
         ServerBuilder serverBuilder =

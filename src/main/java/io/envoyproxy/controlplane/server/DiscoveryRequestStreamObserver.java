@@ -1,6 +1,7 @@
 package io.envoyproxy.controlplane.server;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static io.envoyproxy.controlplane.pemo.util.UtilConstant.myGlobalPrefix;
 
 import com.google.protobuf.Any;
 import io.envoyproxy.controlplane.cache.Resources;
@@ -57,6 +58,14 @@ public abstract class DiscoveryRequestStreamObserver<T, U> implements StreamObse
     XdsRequest request = discoveryServer.wrapXdsRequest(rawRequest);
     String requestTypeUrl = request.getTypeUrl().isEmpty() ? defaultTypeUrl : request.getTypeUrl();
     String nonce = request.getResponseNonce();
+
+    LOGGER.info("{} call onNext [{}] request {}[{}] with nonce {} from version {}", myGlobalPrefix,
+            streamId,
+            requestTypeUrl,
+            String.join(", ", request.getResourceNamesList()),
+            nonce,
+            request.getVersionInfo());
+
 
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("[{}] request {}[{}] with nonce {} from version {}",

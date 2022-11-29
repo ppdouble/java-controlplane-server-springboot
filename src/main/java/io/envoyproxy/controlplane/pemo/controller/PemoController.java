@@ -31,7 +31,7 @@ public class PemoController {
                           @RequestParam(value = "ver", defaultValue = "1") String version) {
 
         System.out.println("\033[34m");
-        System.out.println("Received");
+        System.out.println("Springboot Controller Received");
         System.out.println("\033[0m");
         handleUserRequest.handleRequest(c, ip, port, version);
         return c;
