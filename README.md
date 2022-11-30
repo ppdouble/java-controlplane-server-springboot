@@ -1,3 +1,6 @@
+[envoyproxy/envoy v1.23.1](https://github.com/ppdouble/envoymesh-practice/tree/main/pp-ldscds-grpc-javacontrolplane)
+
+java control plane:
 
 Customized server source code
 
@@ -10,11 +13,12 @@ Customized server source code
 | proto file sample | generated(protoc compiled) and java compiled |
 | ---- | ---- |
 | `api-0.1.35.jar!/envoy/service/discovery/v3/discovery.proto` | `api-0.1.35.jar!/io.envoyproxy/envoy/service/discovery/v3/v3DiscoveryRequest.class` |
+| | ... |
 | `api-0.1.35.jar!/envoy/service/discovery/v3/ads.proto`  | `api-0.1.35.jar!/io.envoyproxy/envoy/service/discovery/v3/AggregatedDiscoveryServiceGrpc.class` |
 | | `api-0.1.35.jar!/io.envoyproxy/envoy/service/discovery/v3/AggregatedDiscoveryService.class` |
 | `api-0.1.35.jar!/envoy/service/cluster/v3/cds.proto` |`api-0.1.35.jar!/io.envoyproxy/envoy/service/cluster/v3/ClusterDiscoveryService.class` |
 |    | `api-0.1.35.jar!/io.envoyproxy/envoy/service/cluster/v3/ClusterDiscoveryServiceGrpc.class` |
-
+| | ... |
 
 
 

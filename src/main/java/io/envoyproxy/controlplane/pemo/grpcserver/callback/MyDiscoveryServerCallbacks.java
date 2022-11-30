@@ -1,6 +1,7 @@
 package io.envoyproxy.controlplane.pemo.grpcserver.callback;
 
-import io.envoyproxy.controlplane.server.DiscoveryServer;
+import io.envoyproxy.controlplane.pemo.service.AfterValidationChecking;
+import io.envoyproxy.controlplane.pemo.service.impl.AfterValidationCheckingImpl;
 import io.envoyproxy.controlplane.server.DiscoveryServerCallbacks;
 import io.envoyproxy.envoy.service.discovery.v3.DeltaDiscoveryRequest;
 import io.envoyproxy.envoy.service.discovery.v3.DeltaDiscoveryResponse;
@@ -15,7 +16,10 @@ public class MyDiscoveryServerCallbacks implements DiscoveryServerCallbacks {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MyDiscoveryServerCallbacks.class);
 
-    private final String myPrefix = myGlobalPrefix + " callback";
+    private final String myPrefix = myGlobalPrefix + " Grpc Server callback";
+
+    private AfterValidationChecking handleInvalidation = new AfterValidationCheckingImpl();
+
 
     @Override
     public void onStreamClose(long streamId, String typeUrl) {
@@ -39,17 +43,20 @@ public class MyDiscoveryServerCallbacks implements DiscoveryServerCallbacks {
     @Override
     public void onV3StreamRequest(long streamId, DiscoveryRequest request) {
         LOGGER.info("{} onV3StreamRequest", myPrefix);
-        LOGGER.info("{}, REQUEST version {}, Node {} with resources: {}, typeurl {}, responseNonce {}", myPrefix,
+        LOGGER.info("{}, REQUEST version {}, Node {}, with resources {}, typeurl {}, responseNonce {}", myPrefix,
                 request.getVersionInfo(),
-                request.getNode(),
+                request.getNode().getId(),
                 request.getResourceNamesList(),
                 request.getTypeUrl(),
                 request.getResponseNonce());
-        if (request.hasErrorDetail()) {
+
+
+        if (! request.hasErrorDetail()) {
+            handleInvalidation.receiveACK(request.getVersionInfo(), request.getNode().getId(), request.getResponseNonce());
+        } else {
+            handleInvalidation.receiveNACK(request.getVersionInfo(), request.getNode().getId(), request.getResponseNonce());
             LOGGER.info("{}, NACK from envoy", myPrefix);
-
             LOGGER.info("{}, Errordetail {}", myPrefix, request.getErrorDetail().toString());
-
         }
     }
 

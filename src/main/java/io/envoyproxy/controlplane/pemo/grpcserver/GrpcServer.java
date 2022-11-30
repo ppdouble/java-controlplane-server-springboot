@@ -24,7 +24,6 @@ public class GrpcServer implements InitializingBean {
         return cache;
     }
 
-
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("\033[34m ＝＝＝＝＝＝＝＝＝＝＝＝＝＝InitializingBean afterPropertiesSet＝＝＝＝＝＝");

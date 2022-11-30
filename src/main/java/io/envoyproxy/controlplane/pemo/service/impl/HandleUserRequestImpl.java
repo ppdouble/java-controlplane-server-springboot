@@ -5,8 +5,10 @@ import io.envoyproxy.controlplane.cache.SnapshotConsistencyException;
 import io.envoyproxy.controlplane.cache.TestResources;
 import io.envoyproxy.controlplane.cache.v3.SimpleCache;
 import io.envoyproxy.controlplane.cache.v3.Snapshot;
+import io.envoyproxy.controlplane.pemo.service.AfterValidationChecking;
 import io.envoyproxy.controlplane.pemo.service.HandleUserRequest;
 import io.envoyproxy.envoy.config.cluster.v3.Cluster;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import static io.envoyproxy.controlplane.pemo.grpcserver.GrpcServer.getCache;
@@ -20,6 +22,9 @@ public class HandleUserRequestImpl implements HandleUserRequest {
 
     private static final String GROUP = "key";
 
+    @Autowired
+    AfterValidationChecking handleInvalidation;
+
     @Override
     public void handleRequest(String c, String ip, Integer port, String version) {
 
@@ -32,6 +37,7 @@ public class HandleUserRequestImpl implements HandleUserRequest {
         try {
             snapshot.ensureConsistent();
         } catch (SnapshotConsistencyException e) {
+            handleInvalidation.snapshotInConsistent(version);
             System.out.println("Check Snapshot Consistency Failure");
             e.printStackTrace();
         }
