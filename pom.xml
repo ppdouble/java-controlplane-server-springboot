@@ -58,10 +58,28 @@
 			<artifactId>api</artifactId>
 			<version>${controlplane.version}</version>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.envoyproxy.controlplane</groupId>-->
+<!--			<artifactId>cache</artifactId>-->
+<!--			<version>${controlplane.version}</version>-->
+<!--		</dependency>-->
+
 		<dependency>
-			<groupId>io.envoyproxy.controlplane</groupId>
-			<artifactId>cache</artifactId>
-			<version>${controlplane.version}</version>
+			<groupId>com.google.auto.value</groupId>
+			<artifactId>auto-value</artifactId>
+			<version>${auto-value.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auto.value</groupId>
+			<artifactId>auto-value-annotations</artifactId>
+			<version>${auto-value.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.21.5</version>
 		</dependency>
 
 		<dependency>
@@ -73,8 +91,8 @@
 
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
-			<artifactId>protobuf-java</artifactId>
-			<version>3.21.5</version>
+			<artifactId>protobuf-java-util</artifactId>
+			<version>${protobuf.version}</version>
 		</dependency>
 
 		<!--		<dependency>-->
