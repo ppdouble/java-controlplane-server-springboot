@@ -5,6 +5,8 @@ import io.envoyproxy.controlplane.pemo.grpcserver.callback.MyDiscoveryServerCall
 import io.envoyproxy.controlplane.server.V3DiscoveryServer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.ServerMethodDefinition;
+import io.grpc.ServerServiceDefinition;
 import io.grpc.netty.NettyServerBuilder;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +51,14 @@ public class GrpcServer implements InitializingBean {
 
         System.out.println("Grpc server on " + server.getPort());
         System.out.println("Grpc Server services : ");
-        server.getServices().forEach(System.out::println);
+        //server.getServices().forEach(System.out::println);
+        for (ServerServiceDefinition serverServiceDefinition : server.getServices()) {
+            System.out.println(serverServiceDefinition);
+            System.out.println(serverServiceDefinition.getServiceDescriptor().getName());
+            for (ServerMethodDefinition serverMethodDefinition : serverServiceDefinition.getMethods() ) {
+                System.out.println(serverMethodDefinition.getMethodDescriptor().getFullMethodName());
+            }
+        }
         System.out.println("===================================================================\033[0m");
 
     }

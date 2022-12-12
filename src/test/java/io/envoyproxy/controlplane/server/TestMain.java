@@ -40,7 +40,7 @@ public class TestMain {
     V3DiscoveryServer v3DiscoveryServer = new V3DiscoveryServer(cache);
 
     ServerBuilder builder =
-        NettyServerBuilder.forPort(12345)
+        NettyServerBuilder.forPort(54321)
             .addService(v3DiscoveryServer.getAggregatedDiscoveryServiceImpl())
             .addService(v3DiscoveryServer.getClusterDiscoveryServiceImpl())
             .addService(v3DiscoveryServer.getEndpointDiscoveryServiceImpl())

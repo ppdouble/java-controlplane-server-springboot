@@ -1,6 +1,25 @@
+## Client docker image
 [envoyproxy/envoy v1.23.1](https://github.com/ppdouble/envoymesh-practice/tree/main/pp-ldscds-grpc-javacontrolplane)
 
-java control plane:
+## Client source code
+
+The sample of using generated code in envoy source:
+
+In `envoy/source/server/server.cc`: 
+
+```cpp
+#include "envoy/admin/v3/config_dump.pb.h"
+#include "envoy/config/bootstrap/v3/bootstrap.pb.h"
+```
+
+generated from
+
+```proto
+./api/envoy/config/bootstrap/v3/bootstrap.proto
+./api/envoy/admin/v3/config_dump.proto
+```
+
+## java control plane:
 
 Customized server source code
 
@@ -22,7 +41,7 @@ Customized server source code
 
 
 
-**CDS**
+### CDS proto file
 
 `api-0.1.35.jar!/envoy/service/cluster/v3/cds.proto`
 
@@ -62,3 +81,17 @@ same with EDS, LDS, RDS, SDS
 `api-0.1.35.jar!/envoy/service/secret/v3/sds.proto`
 
 
+### generated source Grpc file sample
+
+In `io.envoyproxy.controlplane.serve.V3DiscoveryServer` imported from `api-0.1.35.jar!/io.envoyproxy.envoy.service.discovery.v3.AggregatedDiscoveryServiceGrpc.class`
+
+```java
+import static io.envoyproxy.envoy.service.discovery.v3.AggregatedDiscoveryServiceGrpc.AggregatedDiscoveryServiceImplBase;
+import static io.envoyproxy.envoy.service.endpoint.v3.EndpointDiscoveryServiceGrpc.EndpointDiscoveryServiceImplBase;
+import static io.envoyproxy.envoy.service.listener.v3.ListenerDiscoveryServiceGrpc.ListenerDiscoveryServiceImplBase;
+import static io.envoyproxy.envoy.service.route.v3.RouteDiscoveryServiceGrpc.RouteDiscoveryServiceImplBase;
+import static io.envoyproxy.envoy.service.secret.v3.SecretDiscoveryServiceGrpc.SecretDiscoveryServiceImplBase;
+```
+
+The client using `ads{}` method is looking for `v3.AggregatedDiscoveryService/StreamAggregatedResourcest` when connecting server. If the service 
+is not registered in server. It will get `Method not found: envoy.service.discovery.v3.AggregatedDiscoveryService/StreamAggregatedResources`.
